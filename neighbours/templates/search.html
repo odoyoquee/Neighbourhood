@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+
+
+<div class="container">
+    <div class="intro">
+        <h2>Searching ...</h2>
+    </div>
+    <hr> {% if searched_HoodMates %}
+    <h5>Found {{ searched_HoodMates|length }} HoodMates(s) for the searched term '{{message}}'</h5>
+    {% else %}
+    <h5> Found 0 HoodMate(s) for the search term '{{message}}'</h5>
+    {% endif %}
+
+    <br> {% if searched_HoodMates %}
+    <ul class="list-group list-group-flush">
+        {% for project in searched_HoodMates %}
+            </p>
+
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endblock%}
