@@ -28,6 +28,35 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user = id).first()
         return profile
 
+class Neighbourhood(models.Model):
+    name = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)
+    population = models.IntegerField()
+    image = ImageField(blank=True, manual_crop='800x800')
+
+    def create_neighbourhood(self):
+        self.save()
+
+    def delete_neighbourhood(self):
+        self.delete()
+
+    @classmethod
+    def search_by_name(cls,id):
+        neighbourhood=cls.objects.filter(name__icontains=id)
+        return neighbours
+
+class Business(models.Model):
+    name = models.CharField(max_length=60)
+    description = models.CharField(max_length=200)
+    user= models.OneToOneField(User, on_delete=models.CASCADE, primary_key = True)
+    neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
+    email = models.EmailField()
+
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
 
 class Post(models.Model):
     # image_pic = models.ImageField(upload_to = 'p/', default='Image')
@@ -76,3 +105,5 @@ class Comments(models.Model):
     def get_comments_by_posts(cls, id):
         comments = Comments.objects.filter(post__pk = id)
         return comments
+
+        

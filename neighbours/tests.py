@@ -2,7 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 from django.test import TestCase
-from .models import Profile, Post,Comments
+from .models import Profile, Post,Comments,Neighbourhood,Business
 
 
 class ProfileTestClass(TestCase):
@@ -57,3 +57,24 @@ class PostTestClass(TestCase):
       posts = Post.objects.all()
       self.assertTrue(len(posts) == 0)
 
+class NeighbourhoodTestClass(TestCase):
+
+        def setUp(self):
+            self.new_neighbourhood=Neighbourhood(name='kampala',population=20101000)
+        def tearDown(self):
+            Neighbourhood.objects.all().delete()
+
+
+        # test for instance
+        def test_instance(self):
+            self.assertTrue(isinstance(self.new_neighbourhood,Neighbourhood))
+        # test for save method
+        def test_save_neighbourhood(self):
+            self.new_neighbourhood.create_neighbourhood()
+            neighbourhood=Neighbourhood.objects.all()
+            self.assertTrue(len(neighborhood)>0)
+        def test_delete_neighbourhood(self):
+            self.new_neighbourhood.create_neighbourhood()
+            self.new_neighbourhood.delete_neighbourhood()
+            neighbourhood=Neighbourhood.objects.all()
+            self.assertEqual(len(neighbourhood),0)
